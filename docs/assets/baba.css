@@ -1,0 +1,39 @@
+html {
+    background-color: #1D1D1D;
+    color: #D1D1D1;
+    text-align: center;
+}
+
+* {
+    font-family: "Kanit", sans-serif;
+}
+
+.pink {
+    color: #F5A9B8;
+}
+
+.baba {
+    color: #A8F4DB;
+}
+
+.blue {
+    color: #5BCEFA;
+}
+
+
+.line {
+    margin: 3px;
+    height: 6px;
+    border-radius: 6px;
+    background-color: #111;
+}
+
+.flex-centered {
+    display: flex;
+    justify-content: center;
+}
+.lil-box {
+    border: solid black;
+    padding: 10px;
+    margin: 10px;
+}
