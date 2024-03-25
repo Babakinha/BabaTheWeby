@@ -4,15 +4,13 @@
 name = "baba-pet"
 
 # default platfrom
-# you can also use `dx serve/build --platform XXX` to use other platform
-# value: web | desktop
 default_platform = "web"
 
 # Web `build` & `serve` dist path
 out_dir = "docs"
 
 # resource (static) file folder
-asset_dir = "public"
+asset_dir = "static"
 
 [web.app]
 
@@ -57,10 +55,10 @@ publisher = "babakinha"
 icon = ["icons/icon.png"]
 
 # Bundle resources
-resources = ["public/*"]
+resources = ["static/*"]
 
 # Bundle copyright
-copyright = ""
+copyright = "Babakinha"
 
 # Bundle category
 category = "Utility"
