@@ -12,4 +12,5 @@ pub fn main<G: Html>() -> PerseusApp<G> {
 
         // Idk if this is needed for gh pages to work but... why not keep it
         .static_alias("/CNAME", "./CNAME")
+        .static_alias("/.nojekyll", "./.nojekyll")
 }
