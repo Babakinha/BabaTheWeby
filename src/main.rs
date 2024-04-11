@@ -1,45 +1,15 @@
-#![allow(unused)]
-use dioxus::prelude::*;
-use dioxus_fullstack::{launch, prelude::*};
-use dioxus_router::prelude::*;
-use serde::{Deserialize, Serialize};
-
-// Generate all routes and output them to the docs path
-#[cfg(feature = "ssr")]
-#[tokio::main]
-async fn main() {
-    pre_cache_static_routes_with_props(
-        &ServeConfigBuilder::new_with_router(dioxus_fullstack::router::FullstackRouterConfig::<
-            Route,
-        >::default())
-        .assets_path("docs")
-        .incremental(IncrementalRendererConfig::default().static_dir("docs"))
-        .build(),
-    )
-    .await
-    .unwrap();
-}
-
-// Hydrate the page
-#[cfg(feature = "web")]
-fn main() {
-    dioxus_web::launch_with_props(
-        dioxus_fullstack::router::RouteWithCfg::<Route>,
-        dioxus_fullstack::prelude::get_root_props_from_document()
-            .expect("Failed to get root props from document"),
-        dioxus_web::Config::default().hydrate(true),
-    );
-}
-
-#[cfg(not(any(feature = "web", feature = "ssr")))]
-fn main() {}
-
-#[derive(Clone, Routable, Debug, PartialEq, Serialize, Deserialize)]
-enum Route {
-    #[route("/")]
-    Home {},
-}
-
-// Pages
 mod home;
-use home::*;
+
+use perseus::prelude::*;
+
+#[perseus::main(perseus_axum::dflt_server)]
+pub fn main<G: Html>() -> PerseusApp<G> {
+    PerseusApp::new()
+        .template(home::get_template())
+        .error_views(ErrorViews::unlocalized_development_default())
+        .static_dir("./static")
+        .static_alias("/favicon.ico", "./static/favicon.ico")
+
+        // Idk if this is needed for gh pages to work but... why not keep it
+        .static_alias("/CNAME", "./CNAME")
+}

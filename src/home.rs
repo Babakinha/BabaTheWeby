@@ -1,11 +1,8 @@
-use dioxus::prelude::*;
+use perseus::prelude::*;
+use sycamore::prelude::*;
 
-#[component]
-pub fn Home(cx: Scope) -> Element {
-    let mut count = use_state(cx, || 0);
-    let text = use_state(cx, || "...".to_string());
-
-    cx.render(rsx! {
+fn home_page<G: Html>(cx: Scope) -> View<G> {
+    view! { cx,
         div {
             h1 { "Hewwo wowld :3" }
             p {
@@ -23,8 +20,26 @@ pub fn Home(cx: Scope) -> Element {
             }
             br {}
             p { "so uhm... i guess thats it, hope u have a nice dayy :3" }
-            div { style: "height: 1000px" }
+            div(style="height: 1000px")
             p { "I love you ❤️" }
         }
-    })
+    }
+}
+
+#[engine_only_fn]
+fn head(cx: Scope) -> View<SsrNode> {
+    view! { cx,
+        title { "OwO What is this?" }
+
+        //TODO: maybe change the .perseus thing somehow
+        link(href="/.perseus/static/assets/baba.css", rel="stylesheet")
+
+        link(rel="preconnect", href="https://fonts.googleapis.com")
+        link(rel="preconnect", href="https://fonts.gstatic.com", crossorigin=true)
+        link(href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,400;0,700;1,400&display=swap", rel="stylesheet")
+    }
+}
+
+pub fn get_template<G: Html>() -> Template<G> {
+    Template::build("index").view(home_page).head(head).build()
 }

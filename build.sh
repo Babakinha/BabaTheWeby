@@ -1,4 +1,5 @@
-#!/bin/sh
+#/bin/sh
+# Btw u need perseus-cli installed
 rm -rf docs
-dx build --features web --release
-cargo run --features ssr --release
+perseus export --release
+cp --dereference --recursive ./dist/exported/ docs
