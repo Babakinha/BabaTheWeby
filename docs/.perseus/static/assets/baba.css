@@ -1,5 +1,6 @@
 html {
-    background-color: #1D1D1D;
+    /* TODO: Remove color banding somehow*/
+    background: linear-gradient(to bottom right, #2F2F2F, #1D1D1D);
     color: #D1D1D1;
     text-align: center;
 }
@@ -36,4 +37,14 @@ html {
     border: solid black;
     padding: 10px;
     margin: 10px;
+}
+
+.blob {
+    /* TODO: Use radial gradient? blur might be expensive */
+    background-color: #FAA9B8;
+    filter: blur(70px);
+    width: 80px;
+    height: 80px;
+    position: fixed;
+    z-index: -100;
 }

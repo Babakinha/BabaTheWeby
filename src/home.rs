@@ -1,3 +1,5 @@
+use std::{cell::RefCell, rc::Rc};
+
 use perseus::prelude::*;
 use sycamore::prelude::*;
 
@@ -31,33 +33,95 @@ fn home_page<G: Html>(cx: Scope) -> View<G> {
 
     // Mouse blob
     //TODO: Maybe use Pointer Events instead
-    //TODO: Smooth this out
-    let blob_x = create_rc_signal(-100);
-    let blob_y = create_rc_signal(-100);
-    blob_x.track();
-    blob_y.track();
+    //TODO: Make the blob shape not just a circle
+    let blob_pos = Rc::new(RefCell::new((-100, -100)));
     #[cfg(client)]
     {
-        let blob_x_clone = blob_x.clone();
-        let blob_y_clone = blob_y.clone();
+        let blob_pos_clone = blob_pos.clone();
         use gloo::{events::EventListener, utils::window};
         EventListener::new(&window(), "mousemove", move |event| {
             use web_sys::wasm_bindgen::JsCast;
 
             let event: &web_sys::MouseEvent = event.unchecked_ref();
-            blob_x_clone.set(event.x());
-            blob_y_clone.set(event.y());
-        }).forget(); //TODO: is this bad?
+            blob_pos_clone.replace((event.x(), event.y()));
+        })
+        .forget(); //TODO: is this bad?
     }
 
-    view! {cx,
-        div(style=format!("background-color: pink; filter: blur(20px); width: 20px; height: 20px; position: fixed; left: {}px; top: {}px; z-index: -100;", blob_x.get(), blob_y.get()))
+    let blob_smooth_pos = create_rc_signal((-100.0, -100.0));
+    let blob_velocity = Rc::new(RefCell::new((0.0, 0.0)));
+    let blob_acceleration = 0.2;
+    let blob_max_speed = 50.0;
 
-        div(style="margin: 10%;") {
-            div(style="white-space: nowrap; text-align: left; font-size: 2rem") {
-                h1 { "Haii :3" br {} " I'm Baba The " (THINGYS[*thingy_index.get()]) }
+    let blob_smooth_pos_clone = blob_smooth_pos.clone();
+    let blob_velocity_clone = blob_velocity.clone();
+    //TODO: Use requestAnimationFrame
+    create_effect(cx, move || {
+        blob_smooth_pos_clone.track(); // Very important (bcs we use it on the client)
+
+        // Only run on client
+        #[cfg(client)]
+        {
+            use gloo::timers::callback::Timeout;
+            use gloo::console::log;
+
+            // Roughly 60fps
+            let blob_smooth_pos_clone = blob_smooth_pos_clone.clone();
+            let blob_velocity_clone = blob_velocity_clone.clone();
+            let blob_pos = blob_pos.borrow();
+            let mouse_x = blob_pos.0 as f64;
+            let mouse_y = blob_pos.1 as f64;
+            let to = Timeout::new(16, move || {
+                let smooth_pos = blob_smooth_pos_clone.get();
+                let dx = mouse_x - smooth_pos.0 as f64;
+                let dy = mouse_y - smooth_pos.1 as f64;
+
+                blob_velocity_clone.replace_with(|velocity| {
+                    log!(dx, dy, velocity.0, velocity.1);
+                    (
+                        ((dx * blob_acceleration)).clamp(-blob_max_speed, blob_max_speed),
+                        ((dy * blob_acceleration)).clamp(-blob_max_speed, blob_max_speed),
+                    )
+                });
+
+                let mut pos = *blob_smooth_pos_clone.get().clone();
+                pos.0 += blob_velocity_clone.borrow().0;
+                pos.1 += blob_velocity_clone.borrow().1;
+                blob_smooth_pos_clone.set(pos);
+            });
+            on_cleanup(cx, || drop(to));
+        }
+    });
+
+    view! {cx,
+        // Blob
+        div(class="blob", style=format!("left: {}px; top: {}px;", blob_smooth_pos.get().0, blob_smooth_pos.get().1))
+
+        //TODO: Make this good on mobile
+        div(style="margin: 10%; text-align: left;") {
+            div(style="font-size: 3rem") {
+                h1 { "Hewwo world :3" br {} "I'm Baba " wbr {} span(style="display: inline-block;") { "The " (THINGYS[*thingy_index.get()]) } }
+            }
+            div(style="font-size: 2rem") {
+                p {
+                    "Your average nerdy "
+                        i { "(social anxiety and depression filled)" }
+                    " Femboi! :3"
+                }
+                p {
+                    "I didnt really think to what i should put here yet... "
+                        i { "(and tbh im just kinda lazy to do it)" }
+                }
+                p {
+                    "but... i will prob put some cool stuff here... "
+                        i { "someday..." }
+                }
             }
         }
+
+        div(style="height: 1000px")
+
+        p { "I love you ❤️" }
     }
     // view! { cx,
     //     h1 { "Hewwo wowld :3" }
