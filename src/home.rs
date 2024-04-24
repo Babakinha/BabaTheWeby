@@ -6,6 +6,7 @@ use sycamore::prelude::*;
 fn home_page<G: Html>(cx: Scope) -> View<G> {
     // Thingy
     const THINGYS: [&str; 3] = ["Dev", "Fluffy", "Noisy"];
+    const THINGYS_CSS_COLOR: [&str; 3] = ["--baba-color", "--femboi-color", "--blue-color"];
     let thingy_index = create_rc_signal::<usize>(0);
 
     let thingy_index_clone = thingy_index.clone();
@@ -50,8 +51,8 @@ fn home_page<G: Html>(cx: Scope) -> View<G> {
 
     let blob_smooth_pos = create_rc_signal((-100.0, -100.0));
     let blob_velocity = Rc::new(RefCell::new((0.0, 0.0)));
-    let blob_acceleration = 0.2;
-    let blob_max_speed = 50.0;
+    let blob_acceleration = 0.15;
+    let blob_max_speed = 100.0;
 
     let blob_smooth_pos_clone = blob_smooth_pos.clone();
     let blob_velocity_clone = blob_velocity.clone();
@@ -63,7 +64,6 @@ fn home_page<G: Html>(cx: Scope) -> View<G> {
         #[cfg(client)]
         {
             use gloo::timers::callback::Timeout;
-            use gloo::console::log;
 
             // Roughly 60fps
             let blob_smooth_pos_clone = blob_smooth_pos_clone.clone();
@@ -76,11 +76,10 @@ fn home_page<G: Html>(cx: Scope) -> View<G> {
                 let dx = mouse_x - smooth_pos.0 as f64;
                 let dy = mouse_y - smooth_pos.1 as f64;
 
-                blob_velocity_clone.replace_with(|velocity| {
-                    log!(dx, dy, velocity.0, velocity.1);
+                blob_velocity_clone.replace_with(|_velocity| {
                     (
-                        ((dx * blob_acceleration)).clamp(-blob_max_speed, blob_max_speed),
-                        ((dy * blob_acceleration)).clamp(-blob_max_speed, blob_max_speed),
+                        (dx * blob_acceleration).clamp(-blob_max_speed, blob_max_speed),
+                        (dy * blob_acceleration).clamp(-blob_max_speed, blob_max_speed),
                     )
                 });
 
@@ -93,9 +92,12 @@ fn home_page<G: Html>(cx: Scope) -> View<G> {
         }
     });
 
+    // wanna see smthn dumb?
+    let thingy_index_clone = thingy_index.clone();
+
     view! {cx,
         // Blob
-        div(class="blob", style=format!("left: {}px; top: {}px;", blob_smooth_pos.get().0, blob_smooth_pos.get().1))
+        div(class="blob", style=format!("left: {}px; top: {}px; --interest-color: var({});", blob_smooth_pos.get().0, blob_smooth_pos.get().1, THINGYS_CSS_COLOR[*thingy_index_clone.get()]))
 
         div(style="margin: 10%; text-align: left;") {
             div(class="home-title") {
