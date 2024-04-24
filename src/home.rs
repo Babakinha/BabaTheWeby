@@ -33,20 +33,40 @@ fn home_page<G: Html>(cx: Scope) -> View<G> {
     });
 
     // Mouse blob
-    //TODO: Maybe use Pointer Events instead
     //TODO: Make the blob shape not just a circle
     let blob_pos = Rc::new(RefCell::new((-100, -100)));
     #[cfg(client)]
     {
-        let blob_pos_clone = blob_pos.clone();
         use gloo::{events::EventListener, utils::window};
-        EventListener::new(&window(), "mousemove", move |event| {
-            use web_sys::wasm_bindgen::JsCast;
+        use web_sys::wasm_bindgen::JsCast;
 
-            let event: &web_sys::MouseEvent = event.unchecked_ref();
-            blob_pos_clone.replace((event.x(), event.y()));
+        //TODO: is forgetting bad?
+        //TODO: is it ok to have lots of event listeneers like this?
+        let blob_pos_clone = blob_pos.clone();
+        EventListener::new(&window(), "pointermove", move |event| {
+            let event: &web_sys::PointerEvent = event.unchecked_ref();
+            blob_pos_clone.replace((event.client_x(), event.client_y()));
         })
-        .forget(); //TODO: is this bad?
+        .forget();
+        
+
+        let blob_pos_clone = blob_pos.clone();
+        EventListener::new(&window(), "touchmove", move |event| {
+            let event: &web_sys::TouchEvent = event.unchecked_ref();
+            if let Some(touch) = event.changed_touches().item(0) {
+                blob_pos_clone.replace((touch.client_x(), touch.client_y()));
+            }
+        })
+        .forget();
+
+        let blob_pos_clone = blob_pos.clone();
+        EventListener::new(&window(), "touchstart", move |event| {
+            let event: &web_sys::TouchEvent = event.unchecked_ref();
+            if let Some(touch) = event.changed_touches().item(0) {
+                blob_pos_clone.replace((touch.client_x(), touch.client_y()));
+            }
+        })
+        .forget();
     }
 
     let blob_smooth_pos = create_rc_signal((-100.0, -100.0));
