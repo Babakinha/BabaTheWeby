@@ -1,3 +1,13 @@
+/* Wont change */
+:root {
+    --femboi-color: #FC6791;
+    --blue-color : #00BAFA;
+    --baba-color: #00FABA;
+
+    /* Will change in code*/
+    --interest-color: var(--baba-color);
+}
+
 html {
     /* TODO: Remove color banding somehow*/
     background: linear-gradient(to bottom right, #2F2F2F, #1D1D1D);
@@ -9,19 +19,6 @@ html {
     font-family: "Kanit", sans-serif;
 }
 
-.pink {
-    color: #F5A9B8;
-}
-
-.baba {
-    color: #A8F4DB;
-}
-
-.blue {
-    color: #5BCEFA;
-}
-
-
 .line {
     margin: 3px;
     height: 6px;
@@ -29,22 +26,35 @@ html {
     background-color: #111;
 }
 
-.flex-centered {
-    display: flex;
-    justify-content: center;
+.home-title {
+    font-size: 2rem;
 }
-.lil-box {
-    border: solid black;
-    padding: 10px;
-    margin: 10px;
+
+.home-description {
+    font-size: 1.25rem;
+}
+
+/* For non-desktop devices */
+@media (max-width: 768px) {
+    .home-title {
+        text-align: center;
+        font-size: 1.5rem;
+    }
+
+    .home-description {
+        font-size: 1rem;
+    }
 }
 
 .blob {
+    background-color: var(--interest-color);
+    transition: .5s background-color ease;
+
     /* TODO: Use radial gradient? blur might be expensive */
-    background-color: #FAA9B8;
-    filter: blur(70px);
+    filter: blur(50px);
     width: 80px;
     height: 80px;
+    transform: translate(-50%, -50%);
     position: fixed;
     z-index: -100;
 }
