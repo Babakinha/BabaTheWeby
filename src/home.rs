@@ -97,12 +97,11 @@ fn home_page<G: Html>(cx: Scope) -> View<G> {
         // Blob
         div(class="blob", style=format!("left: {}px; top: {}px;", blob_smooth_pos.get().0, blob_smooth_pos.get().1))
 
-        //TODO: Make this good on mobile
         div(style="margin: 10%; text-align: left;") {
-            div(style="font-size: 3rem") {
+            div(class="home-title") {
                 h1 { "Hewwo world :3" br {} "I'm Baba " wbr {} span(style="display: inline-block;") { "The " (THINGYS[*thingy_index.get()]) } }
             }
-            div(style="font-size: 2rem") {
+            div(class="home-description") {
                 p {
                     "Your average nerdy "
                         i { "(social anxiety and depression filled)" }
@@ -123,26 +122,6 @@ fn home_page<G: Html>(cx: Scope) -> View<G> {
 
         p { "I love you ❤️" }
     }
-    // view! { cx,
-    //     h1 { "Hewwo wowld :3" }
-    //     p {
-    //         "Haii :3, I'm Baba, just your average nerdy "
-    //         i { "(social anxiety and depression filled)" }
-    //         " Femboi! ^^"
-    //     }
-    //     p {
-    //         "I didnt really think to what i should put here yet... "
-    //         i { "(and tbh im just kinda lazy to do it)" }
-    //     }
-    //     p {
-    //         "but... i will prob put some cool stuff here... "
-    //         i { "someday..." }
-    //     }
-    //     br {}
-    //     p { "so uhm... i guess thats it, hope u have a nice dayy :3" }
-    //     div(style="height: 1000px")
-    //     p { "I love you ❤️" }
-    // }
 }
 
 #[engine_only_fn]

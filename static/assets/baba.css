@@ -29,14 +29,24 @@ html {
     background-color: #111;
 }
 
-.flex-centered {
-    display: flex;
-    justify-content: center;
+.home-title {
+    font-size: 2rem;
 }
-.lil-box {
-    border: solid black;
-    padding: 10px;
-    margin: 10px;
+
+.home-description {
+    font-size: 1.25rem;
+}
+
+/* For non-desktop devices */
+@media (max-width: 768px) {
+    .home-title {
+        text-align: center;
+        font-size: 1.5rem;
+    }
+
+    .home-description {
+        font-size: 1rem;
+    }
 }
 
 .blob {
