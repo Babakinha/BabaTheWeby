@@ -152,12 +152,17 @@ fn head(cx: Scope) -> View<SsrNode> {
         title { "OwO What is this?" }
 
         meta(name="description", content="Haii :3, I'm Baba, just your average nerdy femboy\nWelcome to my website :3")
-        //TODO: maybe change the .perseus thing somehow
-        link(href="/.perseus/static/assets/baba.css", rel="stylesheet")
 
         link(rel="preconnect", href="https://fonts.googleapis.com")
         link(rel="preconnect", href="https://fonts.gstatic.com", crossorigin=true)
-        link(href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,400;0,700;1,400&display=swap", rel="stylesheet")
+        link(rel="preload", as="style", href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,400;0,700;1,400&display=swap")
+        link(rel="stylesheet", media="print", onload="this.media='all'", href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,400;0,700;1,400&display=swap")
+        noscript {
+            link(rel="stylesheet", href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,400;0,700;1,400&display=swap")
+        }
+        
+        //TODO: maybe change the .perseus thing somehow
+        link(href="/.perseus/static/assets/baba.css", rel="stylesheet")
     }
 }
 
