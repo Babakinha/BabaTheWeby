@@ -8,6 +8,25 @@
     --interest-color: var(--baba-color);
 }
 
+/* Animations */
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% { 
+    opacity: 1;
+  }
+}
+
+@keyframes slide {
+  0% {
+    transform: translateX(-200%);
+  }
+  100% { 
+    transform: translateX(0);
+  }
+}
+
 html {
     /* TODO: Remove color banding somehow*/
     background: linear-gradient(to bottom right, #2F2F2F, #1D1D1D);
@@ -27,21 +46,52 @@ html {
 
 .home-title {
     font-size: 2rem;
+
+    opacity: 0;
+    animation-name: slide, fade-in;
+    animation-delay: 0.5s, 0.5s;
+    animation-duration: 1s, 2s;
+    animation-fill-mode: forwards, forwards;
+    animation-timing-function: ease, ease;
+    animation-iteration-count: 1
 }
 
 .home-description {
     font-size: 1.25rem;
+
+    opacity: 0;
+    animation-name: slide, fade-in;
+    animation-delay: 2s, 2s;
+    animation-duration: 1s, 2s;
+    animation-fill-mode: forwards, forwards;
+    animation-timing-function: ease, ease;
+    animation-iteration-count: 1
 }
+
 
 /* For non-desktop devices */
 @media (max-width: 768px) {
     .home-title {
         text-align: center;
         font-size: 1.5rem;
+
+        animation-name: fade-in;
+        animation-delay: 0.5s;
+        animation-duration: 1s;
+        animation-fill-mode: forwards;
+        animation-timing-function: ease;
+        animation-iteration-count: 1
     }
 
     .home-description {
         font-size: 1rem;
+
+        animation-name: fade-in;
+        animation-delay: 2s;
+        animation-duration: 1s;
+        animation-fill-mode: forwards;
+        animation-timing-function: ease;
+        animation-iteration-count: 1
     }
 }
 
