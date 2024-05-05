@@ -8,7 +8,9 @@
     --interest-color: var(--baba-color);
 }
 
+/* TODO: Redo animations */
 /* Animations */
+/*
 @keyframes fade-in {
   0% {
     opacity: 0;
@@ -26,6 +28,7 @@
     transform: translateX(0);
   }
 }
+*/
 
 html {
     /* TODO: Remove color banding somehow*/
@@ -47,6 +50,7 @@ html {
 .home-title {
     font-size: 2rem;
 
+    /*
     opacity: 0;
     animation-name: slide, fade-in;
     animation-delay: 0.5s, 0.5s;
@@ -54,11 +58,13 @@ html {
     animation-fill-mode: forwards, forwards;
     animation-timing-function: ease, ease;
     animation-iteration-count: 1
+    */
 }
 
 .home-description {
     font-size: 1.25rem;
 
+    /*
     opacity: 0;
     animation-name: slide, fade-in;
     animation-delay: 2s, 2s;
@@ -66,6 +72,7 @@ html {
     animation-fill-mode: forwards, forwards;
     animation-timing-function: ease, ease;
     animation-iteration-count: 1
+    */
 }
 
 
@@ -75,23 +82,27 @@ html {
         text-align: center;
         font-size: 1.5rem;
 
+        /*
         animation-name: fade-in;
         animation-delay: 0.5s;
         animation-duration: 1s;
         animation-fill-mode: forwards;
         animation-timing-function: ease;
         animation-iteration-count: 1
+        */
     }
 
     .home-description {
         font-size: 1rem;
 
+        /*
         animation-name: fade-in;
         animation-delay: 2s;
         animation-duration: 1s;
         animation-fill-mode: forwards;
         animation-timing-function: ease;
         animation-iteration-count: 1
+        */
     }
 }
 
