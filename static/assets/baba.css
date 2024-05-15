@@ -47,8 +47,29 @@ html {
     background-color: #111;
 }
 
+.intro-box {
+    margin: 10% 10% 0 10%;
+    text-align: left;
+
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: auto;
+    grid-template-areas:
+        "title photo"
+        "text photo";
+
+}
+
+.intro-box > img {
+    grid-area: photo;
+    align-self: center;
+    justify-self: center;
+}
+
 .home-title {
     font-size: 2rem;
+    grid-area: title;
+    align-self: end;
 
     /*
     opacity: 0;
@@ -61,8 +82,13 @@ html {
     */
 }
 
+.home-title > h1 {
+    margin: 0;
+}
 .home-description {
     font-size: 1.25rem;
+    grid-area: text;
+    align-self: start;
 
     /*
     opacity: 0;
@@ -76,8 +102,17 @@ html {
 }
 
 
-/* For non-desktop devices */
-@media (max-width: 768px) {
+@media (max-width: 66em) {
+    .intro-box {
+        justify-items: center;
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+        grid-template-areas:
+            "title"
+            "text"
+            "photo";
+    }
+
     .home-title {
         text-align: center;
         font-size: 1.5rem;

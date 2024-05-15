@@ -7,6 +7,7 @@ fn home_page<G: Html>(cx: Scope) -> View<G> {
     // Thingy
     const THINGYS: [&str; 3] = ["Dev", "Fluffy", "Noisy"];
     const THINGYS_CSS_COLOR: [&str; 3] = ["--baba-color", "--femboi-color", "--blue-color"];
+    const THINGYS_IMAGE: [&str; 3] = ["buggy.svg", "owo.svg", "noisy.svg"];
     let thingy_index = create_rc_signal::<usize>(0);
 
     let thingy_index_clone = thingy_index.clone();
@@ -114,31 +115,36 @@ fn home_page<G: Html>(cx: Scope) -> View<G> {
 
     // wanna see smthn dumb?
     let thingy_index_clone = thingy_index.clone();
+    let thingy_index_clone_clone = thingy_index.clone();
 
     view! {cx,
         // Blob
         div(class="blob", style=format!("left: {}px; top: {}px; --interest-color: var({});", blob_smooth_pos.get().0, blob_smooth_pos.get().1, THINGYS_CSS_COLOR[*thingy_index_clone.get()]))
 
-        div(style="margin: 10%; text-align: left;") {
+        div(class="intro-box") {
             div(class="home-title") {
                 h1 { "Hewwo world :3" br {} "I'm Baba " wbr {} span(style="display: inline-block;") { "The " (THINGYS[*thingy_index.get()]) } }
             }
             div(class="home-description") {
                 p {
                     "Your average nerdy "
-                        i { "(social anxiety and depression filled)" }
+                        i(style="display: inline-block; white-space: nowrap;") { "(social anxiety and depression filled)" }
                     " Femboi! :3"
                 }
                 p {
                     "I didnt really think to what i should put here yet... "
-                        i { "(and tbh im just kinda lazy to do it)" }
+                        i(style="display: inline-block; white-space: nowrap;") { "(and tbh im just kinda lazy to do it)" }
                 }
                 p {
                     "but... i will prob put some cool stuff here... "
                         i { "someday..." }
                 }
             }
+
+            img(src=format!("/.perseus/static/assets/{}", THINGYS_IMAGE[*thingy_index_clone_clone.get()]), width="400px", height="400px")
         }
+
+
 
         div(style="height: 1000px")
 
