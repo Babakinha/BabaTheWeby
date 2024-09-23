@@ -144,11 +144,32 @@ fn home_page<G: Html>(cx: Scope) -> View<G> {
             img(src=format!("/.perseus/static/assets/{}", THINGYS_IMAGE[*thingy_index_clone_clone.get()]), width="400px", height="400px")
         }
 
+        div(class="line", style="margin-top: 200px")
+
+        div(class="projects-box") {
+            div(class="simple-title") {
+                h1 { "Projectzz" }
+            }
+            div(class="simple-description") {
+                p { "Check out my projectzz >:3" }
+                p { "These are not all of them, but i think they are pretty cool" }
+                p(style="color: #666a") { "//TODO: This is very unfinished -.-" }
+            }
+
+            div(class="projects") {
+                //TODO: Components?
+                a(class="project-card", href="/babiano") {
+                    img(src="/.perseus/static/assets/projects/babiano.svg", width="400px", height="400px")
+                }
+            }
+
+        }
+
 
 
         div(style="height: 1000px")
 
-        p { "I love you ❤️" }
+        p(class="sticky-love") { "I love you ❤️" }
     }
 }
 

@@ -41,12 +41,13 @@ html {
 }
 
 .line {
-    margin: 3px;
+    margin: 3px 60px;
     height: 6px;
     border-radius: 6px;
-    background-color: #111;
+    background-color: #4444;
 }
 
+/* Home */
 .intro-box {
     margin: 10% 10% 0 10%;
     text-align: left;
@@ -59,6 +60,7 @@ html {
         "text photo";
 
 }
+
 
 .intro-box > img {
     grid-area: photo;
@@ -101,6 +103,41 @@ html {
     */
 }
 
+/* Projects */
+.projects-box {
+    margin: 6% 10% 0 10%;
+    text-align: left;
+}
+
+.projects {
+    display: flex;
+    justify-content: center;
+}
+
+.project-card {
+    transition: all 0.3s ease-in-out;
+}
+
+.project-card:hover {
+    transform: scale(1.1);
+}
+
+/* Simple */
+.simple-title {
+    font-size: 2rem;
+}
+
+.simple-title > h1 {
+    margin: 0;
+}
+
+.simple-description{
+    font-size: 1.25rem;
+}
+
+.simple-description > p {
+    margin: 0;
+}
 
 @media (max-width: 66em) {
     .intro-box {
@@ -139,6 +176,16 @@ html {
         animation-iteration-count: 1
         */
     }
+
+    /* Simple */
+    .simple-title {
+        font-size: 1.5rem;
+        text-align: center;
+    }
+
+    .simple-description{
+        font-size: 1rem;
+    }
 }
 
 .blob {
@@ -152,4 +199,9 @@ html {
     transform: translate(-50%, -50%);
     position: fixed;
     z-index: -100;
+}
+
+.sticky-love {
+    position: sticky;
+    bottom: 10px;
 }

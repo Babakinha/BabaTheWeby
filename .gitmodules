@@ -1,0 +1,3 @@
+[submodule "sub/projects/babiano"]
+	path = sub/projects/babiano
+	url = git@github.com:Babakinha/babiano.git
