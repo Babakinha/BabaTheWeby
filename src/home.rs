@@ -158,7 +158,7 @@ fn home_page<G: Html>(cx: Scope) -> View<G> {
 
             div(class="projects") {
                 //TODO: Components?
-                a(class="project-card", href="/babiano") {
+                a(class="project-card", href="/babiano", rel="external") {
                     img(src="/.perseus/static/assets/projects/babiano.svg", width="400px", height="400px")
                 }
             }
