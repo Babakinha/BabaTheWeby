@@ -55,7 +55,7 @@ jobs:
         run: cargo install perseus-cli
 
       - name: Build page
-        run: perseus export --release
+        run: perseus --wasm-opt-version version_118 export --release
 
       - name: Build Babiano project
         run: |
