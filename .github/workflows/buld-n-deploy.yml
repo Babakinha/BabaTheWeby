@@ -54,6 +54,10 @@ jobs:
       - name: Install perseus
         run: cargo install perseus-cli
 
+      - name: Install leptos
+        run: "curl --proto '=https' --tlsv1.2 -LsSf https://github.com/leptos-rs/cargo-leptos/releases/download/v0.3.2/cargo-leptos-installer.sh | sh"
+        shell: bash
+
       - name: Build page
         run: perseus --wasm-opt-version version_118 export --release
 
@@ -61,7 +65,7 @@ jobs:
         run: |
           cd ./sub/projects/babiano
           ./export_singlepage.sh
-          cp -r ./dist/exported/* ../../../dist/exported/
+          mv ./dist ../../../dist/exported/babiano
         shell: bash
 
       - name: Upload artifact
