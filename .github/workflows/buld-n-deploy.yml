@@ -55,14 +55,14 @@ jobs:
         run: "curl -L --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/cargo-bins/cargo-binstall/main/install-from-binstall-release.sh | bash"
         shell: bash
 
-      - name: Install perseus
-        run: cargo binstall --no-confirm perseus-cli@0.4.2
+      - name: Frick perseus
+        run: "wget https://github.com/framesurge/perseus/releases/download/v0.4.2/perseus-linux-amd64 && chmod +x ./perseus-linux-amd64"
       
       - name: Install leptos
         run: cargo binstall --no-confirm cargo-leptos@0.3.2
 
       - name: Build page
-        run: perseus --wasm-opt-version version_118 export --release
+        run: ./perseus-linux-amd64 --wasm-opt-version version_118 export --release
 
       - name: Build Babiano project
         run: |
