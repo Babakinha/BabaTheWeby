@@ -1,0 +1,154 @@
+/* Wont change */
+:root {
+    --femboi-color: #FC6791;
+    --blue-color : #00BAFA;
+    --baba-color: #00FABA;
+
+    /* Will change in code*/
+    --interest-color: var(--baba-color);
+}
+
+/* TODO: Redo animations */
+/* Animations */
+/*
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% { 
+    opacity: 1;
+  }
+}
+
+@keyframes slide {
+  0% {
+    transform: translateX(-200%);
+  }
+  100% { 
+    transform: translateX(0);
+  }
+}
+*/
+
+body {
+    /* TODO: Remove color banding somehow*/
+    background: linear-gradient(to bottom right, #2F2F2F, #1D1D1D);
+    margin: 0;
+
+    color: #D1D1D1;
+    text-align: center;
+
+    font-family: "Kanit", sans-serif;
+}
+
+.line {
+    margin: 3px 60px;
+    height: 6px;
+    border-radius: 6px;
+    background-color: #4444;
+}
+
+/* Introduction :3 */
+.intro-box {
+    margin: 10% 10% 0 10%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    text-align: left;
+}
+
+.intro-text > h1 {
+    font-size: 2.25rem;
+}
+
+.intro-text > p {
+    font-size: 1rem;
+}
+
+.intro-image {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.intro-image > img {
+    width: 100%;
+}
+
+/* Projects */
+.projects-box {
+    margin: 6% 10% 0 10%;
+    text-align: left;
+}
+
+.projects {
+    display: flex;
+    justify-content: center;
+}
+
+.project-card {
+    transition: all 0.3s ease-in-out;
+}
+
+.project-card:hover {
+    transform: scale(1.1);
+}
+
+/* Simple */
+.simple-title {
+    font-size: 2rem;
+}
+
+.simple-title > h1 {
+    margin: 0;
+}
+
+.simple-description{
+    font-size: 1rem;
+}
+
+.simple-description > p {
+    margin: 0;
+}
+
+@media (max-width: 750px) {
+    /* Introduction :3 */
+    .intro-text {
+        text-align: center;
+    }
+
+    .intro-text > h1 {
+        font-size: 1.5rem;
+    }
+
+    .intro-text > p {
+        font-size: 1rem;
+    }
+
+    /* Simple */
+    .simple-title {
+        font-size: 1.5rem;
+        text-align: center;
+    }
+
+    .simple-description {
+        font-size: 1rem;
+        text-align: center;
+    }
+}
+
+.blob {
+    background-color: var(--interest-color);
+    transition: .5s background-color ease;
+
+    /* TODO: Use radial gradient? blur might be expensive */
+    filter: blur(50px);
+    width: 80px;
+    height: 80px;
+    transform: translate(-50%, -50%);
+    position: fixed;
+    z-index: -100;
+}
+
+.sticky-love {
+    position: sticky;
+    bottom: 10px;
+}
