@@ -16,7 +16,7 @@ env:
 
 jobs:
   build:
-    name: Build page with perseus
+    name: Build page with leptos
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -52,26 +52,23 @@ jobs:
         run: "curl -L --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/cargo-bins/cargo-binstall/main/install-from-binstall-release.sh | bash"
         shell: bash
 
-      - name: Frick perseus
-        run: "wget https://github.com/framesurge/perseus/releases/download/v0.4.2/perseus-linux-amd64 && chmod +x ./perseus-linux-amd64"
-      
       - name: Install leptos
         run: cargo binstall --no-confirm cargo-leptos@0.3.2
 
       - name: Build page
-        run: ./perseus-linux-amd64 --wasm-opt-version version_118 export --release
+        run: ./export_singlepage.sh
 
       - name: Build Babiano project
         run: |
           cd ./sub/projects/babiano
           ./export_singlepage.sh
-          mv ./dist ../../../dist/exported/babiano
+          mv ./dist ../../../dist/babiano
         shell: bash
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ${{ env.BUILD_PATH }}/dist/exported
+          path: ${{ env.BUILD_PATH }}/dist
   
   deploy:
     name: Deploy to github pages
