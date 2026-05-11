@@ -1,7 +1,8 @@
-pub mod home;
 pub mod app;
+pub mod home;
 
 pub const EXPORT_PATH: Option<&'static str> = option_env!("EXPORT_PATH");
+pub const LEPTOS_SERVE_MODE: Option<&'static str> = option_env!("LEPTOS_SERVE_MODE");
 
 #[cfg(feature = "hydrate")]
 #[wasm_bindgen::prelude::wasm_bindgen]

@@ -29,6 +29,7 @@ gloo-net = { version = "0.6.0", optional = true }
 gloo = "0.12.0"
 gloo-timers = "0.4.0"
 leptos-use = {version = "0.18.3", features = ["use_raf_fn"]}
+axum = { version = "0.8.9", optional = true }
 
 [dependencies.web-sys]
 version = "0.3.69"
@@ -41,6 +42,7 @@ export = [
     "leptos/ssr",
     "leptos_meta/ssr",
     "dep:leptos_axum",
+    "dep:axum",
     "leptos_router/ssr",
 ]
 

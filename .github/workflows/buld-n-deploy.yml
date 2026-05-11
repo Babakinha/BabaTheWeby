@@ -55,8 +55,11 @@ jobs:
       - name: Install leptos
         run: cargo binstall --no-confirm cargo-leptos@0.3.2
 
+      - name: Install cargo make
+        run: cargo binstall --no-confirm cargo-make@0.37.24
+
       - name: Build page
-        run: ./export.sh
+        run: RELEASE=true cargo make build
 
       - name: Build Babiano project
         run: |

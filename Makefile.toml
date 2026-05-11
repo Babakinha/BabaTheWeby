@@ -1,0 +1,60 @@
+[env]
+LEPTOS_SERVE_MODE = { value = "SERVE", condition = { env_not_set = ["LEPTOS_SERVE_MODE"] } }
+# RELEASE: Sets if it should be in release mode
+# EXPORT_PATH: Sets if and where it should be accessed as a subpage
+
+[tasks.build]
+description = "Compiles the project"
+clear = true
+env = { "LEPTOS_SERVE_MODE" = "BUILD" }
+run_task = "execute-leptos-serve"
+
+[tasks.serve]
+description = "Runs the leptos dev server"
+clear = true
+env = { "LEPTOS_SERVE_MODE" = "SERVE" }
+run_task = "execute-leptos-serve"
+
+[tasks.watch]
+description = "Runs the leptos dev server"
+clear = true
+env = { "LEPTOS_SERVE_MODE" = "SERVE" }
+run_task = "execute-leptos-watch"
+
+[tasks.execute-leptos-serve]
+description = "Runs cargo leptos serve"
+private = true
+script = [
+    '''
+    if [ -n "${RELEASE}" ]; then
+        echo "Building in release mode"
+        BUILD_FLAGS="--release"
+    fi
+
+    if [ -n "${EXPORT_PATH}" ]; then
+        echo "Export path set as: ${EXPORT_PATH}"
+        echo "(this means your website will be available under /${EXPORT_PATH})"
+    fi
+
+    cargo leptos serve ${BUILD_FLAGS}
+    '''
+]
+
+[tasks.execute-leptos-watch]
+description = "Runs cargo leptos watch"
+private = true
+script = [
+    '''
+    if [ -n "${RELEASE}" ]; then
+        echo "Building in release mode"
+        BUILD_FLAGS="--release"
+    fi
+
+    if [ -n "${EXPORT_PATH}" ]; then
+        echo "Export path set as: ${EXPORT_PATH}"
+        echo "(this means your website will be available under /${EXPORT_PATH})"
+    fi
+
+    cargo leptos watch ${BUILD_FLAGS}
+    '''
+]

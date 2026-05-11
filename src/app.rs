@@ -1,10 +1,10 @@
+use crate::home::HomePage;
+use crate::EXPORT_PATH;
 use leptos::prelude::*;
 use leptos_meta::*;
-use leptos_router::*;
 use leptos_router::components::*;
-use crate::EXPORT_PATH;
-use crate::home::HomePage;
 use leptos_router::static_routes::StaticRoute;
+use leptos_router::*;
 
 pub fn shell(options: LeptosOptions) -> impl IntoView {
     view! {
